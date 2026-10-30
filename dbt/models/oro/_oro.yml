@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: dim_cervecero
+    columns:
+      - name: cervecero
+        data_tests:
+          - unique
+          - not_null
+
+  - name: dim_fermentador
+    columns:
+      - name: fermentador
+        data_tests:
+          - unique
+          - not_null
+
+  - name: dim_estilo
+    columns:
+      - name: estilo
+        data_tests:
+          - unique
+          - not_null
+
+  - name: fact_lotes
+    columns:
+      - name: lote
+        data_tests:
+          - unique
+
+      - name: cervecero
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_cervecero')
+                field: cervecero
+
+      - name: fermentador
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_fermentador')
+                field: fermentador
+
+      - name: estilo
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_estilo')
+                field: estilo
