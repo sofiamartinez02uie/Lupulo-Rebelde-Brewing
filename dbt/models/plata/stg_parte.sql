@@ -18,7 +18,14 @@ mediana_estilo as (
 select
     s.lote,
     s.fecha::date                                              as fecha,
-    upper(trim(s.cervecero))                                         as cervecero,
+    -- La nueva remesa trae algunos nombres como "APELLIDOS, NOMBRE".
+-- Los normalizamos al formato "NOMBRE APELLIDOS" para no duplicar cerveceros.
+case
+    when contains(s.cervecero, ',') then
+        upper(trim(split_part(s.cervecero, ',', 2)) || ' ' ||
+              trim(split_part(s.cervecero, ',', 1)))
+    else upper(trim(s.cervecero))
+end as cervecero,
     s.fermentador,
     s.estilo,
     case when s.litros::integer between 1 and 3000 then s.litros::integer
