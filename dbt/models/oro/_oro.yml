@@ -48,3 +48,59 @@ models:
               arguments:
                 to: ref('dim_estilo')
                 field: estilo
+
+  - name: historia_resumen
+    columns:
+      - name: lotes
+        data_tests:
+          - not_null
+          - unique
+
+  - name: historia_horas
+    columns:
+      - name: lote
+        data_tests:
+          - unique
+          - not_null
+      - name: fermentador
+        data_tests:
+          - not_null
+      - name: horas_tal_cual
+        data_tests:
+          - not_null
+      - name: horas_revisada
+        data_tests:
+          - not_null
+
+  - name: historia_calor
+    columns:
+      - name: fermentador
+        data_tests:
+          - not_null
+      - name: estilo
+        data_tests:
+          - not_null
+      - name: par
+        data_tests:
+          - unique
+          - not_null
+
+  - name: historia_litros_mes
+    columns:
+      - name: mes
+        data_tests:
+          - unique
+          - not_null
+
+  - name: historia_fv97_horas
+    columns:
+      - name: hora
+        data_tests:
+          - unique
+          - not_null
+      - name: temp_media
+        data_tests:
+          - not_null
+      - name: temp_max
+        data_tests:
+          - not_null
